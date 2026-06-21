@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button, InputField, SelectField } from "../components/ui";
-import type { ComputeType } from "../types";
+import { COMPUTE_TYPES, type ComputeType } from "../types";
 
 export interface CreateJobFormData {
   name: string;
@@ -21,8 +21,6 @@ interface CreateJobModalProps {
   onClose: () => void;
   onCreate: (jobData: CreateJobFormData) => void;
 }
-
-const COMPUTE_TYPES: ComputeType[] = ["CPU Small", "CPU Large", "GPU"];
 
 function validateForm(data: CreateJobFormData): CreateJobFormErrors {
   const errors: CreateJobFormErrors = {};
@@ -129,7 +127,8 @@ export function CreateJobModal({
           />
 
           <SelectField
-            className="flex flex-row items-center justify-between gap-2"
+            wrapperClassName="flex flex-row items-center justify-between gap-2"
+            selectClassName="w-60"
             label="Compute Type"
             value={form.computeType}
             error={formErrors.computeType}

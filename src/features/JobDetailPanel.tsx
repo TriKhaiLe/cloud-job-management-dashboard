@@ -73,12 +73,16 @@ export const JobDetailPanel: React.FC<JobDetailPanelProps> = ({
           <dl className="mt-3 space-y-3">
             <div className="grid grid-cols-[160px_1fr_auto] items-center gap-2">
               <dt className="text-gray-500">Input File</dt>
-              <dd className="text-left">{selectedJob.inputFile}</dd>
+              <dd className="overflow-hidden text-left text-ellipsis whitespace-nowrap">
+                {selectedJob.inputFile}
+              </dd>
               <Download />
             </div>
             <div className="grid grid-cols-[160px_1fr_auto] items-center gap-2">
               <dt className="text-gray-500">Output File</dt>
-              <dd className="text-left">{selectedJob.outputFile}</dd>
+              <dd className="overflow-hidden text-left text-ellipsis whitespace-nowrap">
+                {selectedJob.outputFile}
+              </dd>
               <Download />
             </div>
           </dl>

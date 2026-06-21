@@ -1,16 +1,19 @@
 import React from "react";
 
 type SelectFieldProps = React.SelectHTMLAttributes<HTMLSelectElement> & {
-  label: string;
+  label?: string;
   error?: string;
   placeholder?: string;
+  wrapperClassName?: string;
+  selectClassName?: string;
 };
 
 export function SelectField({
   label,
   error,
   id,
-  className = "",
+  wrapperClassName = "",
+  selectClassName = "",
   children,
   placeholder,
   ...props
@@ -19,7 +22,7 @@ export function SelectField({
   const selectId = id ?? generatedId;
 
   return (
-    <div className={className}>
+    <div className={wrapperClassName}>
       <label
         htmlFor={selectId}
         className="mb-1 block text-sm font-medium text-slate-700"
@@ -30,8 +33,9 @@ export function SelectField({
         <select
           id={selectId}
           className={[
-            "w-60 rounded-lg border bg-white px-3 py-2 text-sm transition outline-none",
+            "rounded-lg border bg-white px-3 py-2 text-sm transition outline-none",
             "border-slate-300 focus:border-slate-900 focus:ring-2 focus:ring-slate-200",
+            selectClassName,
             error
               ? "border-red-500 focus:border-red-500 focus:ring-red-100"
               : "",
