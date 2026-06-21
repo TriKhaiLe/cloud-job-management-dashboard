@@ -16,6 +16,7 @@ import {
 } from "./types";
 import { JobDetailPanel } from "./features/JobDetailPanel";
 import { BillingPage } from "./features/BillingPage";
+import { useJobLifecycle } from "./hooks/useJobLifeCycle";
 
 function App() {
   const [jobs, setJobs] = useState<Job[]>(mockJobs);
@@ -146,6 +147,8 @@ function App() {
       )}
     </>
   );
+
+  useJobLifecycle({ jobs, setJobs });
 
   return (
     <AppLayout
