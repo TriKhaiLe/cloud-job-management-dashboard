@@ -16,7 +16,7 @@ import {
 } from "./types";
 import { JobDetailPanel } from "./features/JobDetailPanel";
 import { BillingPage } from "./features/BillingPage";
-import { useJobLifecycle } from "./hooks/useJobLifeCycle";
+import { useJobLifecycle } from "./hooks/useJobLifecycle";
 
 function App() {
   const [jobs, setJobs] = useState<Job[]>([]);
