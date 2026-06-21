@@ -17,6 +17,7 @@ function App() {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [filterStatus, setFilterStatus] = useState("");
   const [sortDirection, setSortDirection] = useState<SortDirection>("desc");
+  const [searchQuery, setSearchQuery] = useState("");
 
   function generateJobId(existing: Job[]): string {
     const nums = existing.map((j) => parseInt(j.id.replace("JOB-", ""), 10));
@@ -49,6 +50,13 @@ function App() {
     if (filterStatus) {
       result = result.filter((job) => job.status === filterStatus);
     }
+    if (searchQuery) {
+      const lowerQuery = searchQuery.toLowerCase();
+      result = result.filter((job) =>
+        job.name.toLowerCase().includes(lowerQuery),
+      );
+    }
+
     if (sortDirection === "asc") {
       result.sort(
         (a, b) =>
@@ -61,10 +69,11 @@ function App() {
       );
     }
     return result;
-  }, [jobs, filterStatus, sortDirection]);
+  }, [jobs, filterStatus, sortDirection, searchQuery]);
 
   return (
     <AppLayout
+      onSearchChange={setSearchQuery}
       rightPanel={
         selectedJob && (
           <JobDetailPanel

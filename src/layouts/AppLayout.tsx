@@ -5,11 +5,13 @@ import { Bell, Search, User } from "lucide-react";
 interface AppLayoutProps {
   children: React.ReactNode;
   rightPanel?: React.ReactNode;
+  onSearchChange: (query: string) => void;
 }
 
 export const AppLayout: React.FC<AppLayoutProps> = ({
   children,
   rightPanel,
+  onSearchChange,
 }) => {
   return (
     <div className="flex h-screen w-full bg-gray-50 font-sans text-gray-900">
@@ -49,6 +51,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
                 type="text"
                 placeholder="Search jobs..."
                 className="w-90 rounded-md border border-gray-300 py-1.5 pr-4 pl-10 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                onChange={(e) => onSearchChange(e.target.value)}
               />
             </div>
 
