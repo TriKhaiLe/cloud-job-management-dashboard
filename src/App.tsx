@@ -9,9 +9,11 @@ import {
 } from "./features/CreateJobModal";
 import { useState } from "react";
 import type { Job } from "./types";
+import { JobDetailPanel } from "./features/JobDetailPanel";
 
 function App() {
   const [jobs, setJobs] = useState<Job[]>(mockJobs);
+  const [selectedJob, setSelectedJob] = useState<Job | null>(null);
   const [showCreateModal, setShowCreateModal] = useState(false);
 
   function generateJobId(existing: Job[]): string {
@@ -41,7 +43,16 @@ function App() {
   };
 
   return (
-    <AppLayout>
+    <AppLayout
+      rightPanel={
+        selectedJob && (
+          <JobDetailPanel
+            selectedJob={selectedJob}
+            onClose={() => setSelectedJob(null)}
+          />
+        )
+      }
+    >
       <div className="flex items-center justify-start gap-4 border-b border-gray-200 bg-white py-4">
         <Button variant="primary" onClick={() => setShowCreateModal(true)}>
           <Plus size={18} />
@@ -50,7 +61,7 @@ function App() {
         {/* Filter and sort bar */}
       </div>
       {/* Job Table */}
-      <JobTable jobs={jobs} />
+      <JobTable jobs={jobs} onJobSelect={setSelectedJob} />
       <CreateJobModal
         isOpen={showCreateModal}
         onClose={() => setShowCreateModal(false)}

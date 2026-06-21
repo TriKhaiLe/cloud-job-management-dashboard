@@ -4,9 +4,10 @@ import type { Job } from "../types";
 
 interface JobTableProps {
   jobs: Job[];
+  onJobSelect?: (job: Job) => void;
 }
 
-export function JobTable({ jobs }: JobTableProps) {
+export function JobTable({ jobs, onJobSelect }: JobTableProps) {
   return (
     <div className="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
       <table className="min-w-full divide-y divide-gray-200 bg-white text-sm">
@@ -38,7 +39,10 @@ export function JobTable({ jobs }: JobTableProps) {
                 {new Date(item.createdAt).toLocaleString()}
               </td>
               <td className="flex items-center justify-center gap-2 px-6 py-4">
-                <button className="cursor-pointer text-blue-600 transition-colors hover:text-blue-800">
+                <button
+                  className="cursor-pointer text-blue-600 transition-colors hover:text-blue-800"
+                  onClick={() => onJobSelect?.(item)}
+                >
                   <Eye className="h-4 w-4" />
                 </button>
               </td>
