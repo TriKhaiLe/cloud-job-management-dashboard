@@ -1,18 +1,25 @@
 import React from "react";
 import hero from "../assets/hero.png";
 import { Bell, Search, User } from "lucide-react";
+import type { PageId } from "../types";
 
 interface AppLayoutProps {
   children: React.ReactNode;
   rightPanel?: React.ReactNode;
   onSearchChange: (query: string) => void;
+  activePage?: PageId;
+  onNavigate: (page: PageId) => void;
 }
 
 export const AppLayout: React.FC<AppLayoutProps> = ({
   children,
   rightPanel,
   onSearchChange,
+  activePage = "jobs",
+  onNavigate,
 }) => {
+  const pageTitle = activePage === "billing" ? "Billing" : "Jobs Dashboard";
+
   return (
     <div className="flex h-screen w-full bg-gray-50 font-sans text-gray-900">
       {/* Left Sidebar */}
@@ -25,10 +32,24 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
           <button className="flex items-center rounded-md px-3 py-2 text-left text-gray-600 hover:bg-gray-100">
             Dashboard
           </button>
-          <button className="flex items-center rounded-md bg-gray-100 px-3 py-2 text-left font-medium text-gray-900">
+          <button
+            className={`flex items-center rounded-md px-3 py-2 text-left ${
+              activePage === "jobs"
+                ? "bg-gray-100 font-medium text-gray-900"
+                : "text-gray-600 hover:bg-gray-100"
+            }`}
+            onClick={() => onNavigate("jobs")}
+          >
             Jobs
           </button>
-          <button className="flex items-center rounded-md px-3 py-2 text-left text-gray-600 hover:bg-gray-100">
+          <button
+            className={`flex items-center rounded-md px-3 py-2 text-left ${
+              activePage === "billing"
+                ? "bg-gray-100 font-medium text-gray-900"
+                : "text-gray-600 hover:bg-gray-100"
+            }`}
+            onClick={() => onNavigate("billing")}
+          >
             Billing
           </button>
         </nav>
@@ -43,17 +64,19 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
       <main className="flex flex-1 flex-col overflow-hidden">
         {/* Header */}
         <header className="flex h-16 items-center justify-between border-b border-gray-200 bg-white px-8">
-          <h1 className="text-2xl font-semibold">Jobs Dashboard</h1>
+          <h1 className="text-2xl font-semibold">{pageTitle}</h1>
           <div className="flex items-center gap-6">
-            <div className="relative flex items-center">
-              <Search className="absolute left-3 h-4 w-4 text-gray-400" />
-              <input
-                type="text"
-                placeholder="Search jobs..."
-                className="w-90 rounded-md border border-gray-300 py-1.5 pr-4 pl-10 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                onChange={(e) => onSearchChange(e.target.value)}
-              />
-            </div>
+            {activePage === "jobs" && (
+              <div className="relative flex items-center">
+                <Search className="absolute left-3 h-4 w-4 text-gray-400" />
+                <input
+                  type="text"
+                  placeholder="Search jobs..."
+                  className="w-90 rounded-md border border-gray-300 py-1.5 pr-4 pl-10 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                  onChange={(e) => onSearchChange(e.target.value)}
+                />
+              </div>
+            )}
 
             <button className="relative rounded-full p-2 text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-700">
               <Bell className="h-6 w-6" />
@@ -62,7 +85,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
 
             <div className="flex items-center gap-2">
               <User className="h-9 w-9 rounded-full border-2 border-gray-300" />
-              <span className="text-base font-medium">User Name</span>
+              <span className="text-base font-medium">John Henry</span>
             </div>
           </div>
         </header>

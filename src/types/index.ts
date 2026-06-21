@@ -5,6 +5,7 @@ export type ComputeType = "CPU Small" | "CPU Large" | "GPU";
 export const COMPUTE_TYPES: ComputeType[] = ["CPU Small", "CPU Large", "GPU"];
 
 export type SortDirection = "asc" | "desc";
+export type PageId = 'jobs' | 'billing';
 
 export interface Job {
   id: string; // e.g., JOB-0001
