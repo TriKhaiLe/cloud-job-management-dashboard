@@ -1,73 +1,48 @@
-# React + TypeScript + Vite
+# Cloud Job Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern cloud job management dashboard built with React, Vite, and Tailwind CSS. The dashboard offers an interactive user interface to view, create, filter, and track lifecycle transitions of compute jobs.
 
-Currently, two official plugins are available:
+## Setup Instructions
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Ensure you have Node.js installed, then follow these steps:
 
-## React Compiler
+1. **Install dependencies**:
+   ```bash
+   npm install
+   ```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+2. **Run the development server**:
+   ```bash
+   npm run dev
+   ```
+   Open your browser at the URL provided in the terminal (typically `http://localhost:5173`).
 
-## Expanding the ESLint configuration
+3. **Build for production**:
+   ```bash
+   npm run build
+   ```
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Design Decisions
+### Tech Stack Choices
+- **Framework & Tooling**: Chosen **React** and **Vite** for a fast development loop and robust ecosystem. Employed **TypeScript** to provide strict typing, minimizing runtime errors.
+- **Styling framework**: Used **Tailwind CSS v4** for utility-first, responsive, and easily maintainable styling without writing separate CSS files.
+- **State Management Engine**: Used built-in React hooks (`useState`, `useMemo`) to hold and derive states keeping the app lightweight without requiring complex state libraries like Redux for the current scope.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Project Structure
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+The `src` directory is partitioned by domain rather than file type to maintain a clean flow of data:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+*   **types/** - Holds global TypeScript interfaces acting as the data contract across the app.
+*   **data/** - Contains the mock data layer simulating backend responses.
+*   **components/** - Generic, highly reusable UI building blocks (Buttons, Badges, Inputs).
+*   **features/** - Complex, domain-specific assemblies (JobTable, JobDetailPanel, CreateJobModal).
+*   **layouts/** - The structural application shell containing the sidebar navigation and header.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## What I Would Improve
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+If given more time and resources, here's what could be improved:
+- **Loading States**: Implement loading skeletons for tables.
+- **Scalability of Data Representation**: Implement pagination on tables.
+- **Synchronization**: Synchronize the selected job details when job state updates. 
+- **Responsive Design**: Enhance the dashboard's responsiveness for mobile and tablet devices, ensuring a seamless experience across all screen sizes.
+- **Improve UI & UX**: Synchronize the text size and do some adjustments to match the design mockups. Add animations to enhance user experience.

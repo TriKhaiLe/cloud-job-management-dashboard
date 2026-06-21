@@ -1,7 +1,7 @@
 import { FolderOpen, Plus } from "lucide-react";
 import { AppLayout } from "./layouts/AppLayout";
 import { JobTable } from "./features/JobTable";
-import { mockJobs } from "./data/mockJobs";
+// import { mockJobs } from "./data/mockJobs";
 import { Button, SelectField } from "./components/ui";
 import {
   CreateJobModal,
@@ -19,7 +19,7 @@ import { BillingPage } from "./features/BillingPage";
 import { useJobLifecycle } from "./hooks/useJobLifeCycle";
 
 function App() {
-  const [jobs, setJobs] = useState<Job[]>(mockJobs);
+  const [jobs, setJobs] = useState<Job[]>([]);
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [filterStatus, setFilterStatus] = useState("");
