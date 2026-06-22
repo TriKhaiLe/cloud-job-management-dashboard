@@ -1,6 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import hero from "../assets/hero.png";
-import { Bell, Search, User } from "lucide-react";
+import {
+  Bell,
+  BriefcaseBusiness,
+  CreditCard,
+  Home,
+  Search,
+  Settings,
+  User,
+} from "lucide-react";
 import type { PageId } from "../types";
 
 interface AppLayoutProps {
@@ -9,6 +17,7 @@ interface AppLayoutProps {
   onSearchChange: (query: string) => void;
   activePage?: PageId;
   onNavigate: (page: PageId) => void;
+  onAppendMockJobs?: () => void;
 }
 
 export const AppLayout: React.FC<AppLayoutProps> = ({
@@ -17,7 +26,9 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
   onSearchChange,
   activePage = "jobs",
   onNavigate,
+  onAppendMockJobs,
 }) => {
+  const [showSettingsMenu, setShowSettingsMenu] = useState(false);
   const pageTitle = activePage === "billing" ? "Billing" : "Jobs Dashboard";
 
   return (
@@ -30,6 +41,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
         </div>
         <nav className="flex flex-1 flex-col gap-2 px-3 py-4">
           <button className="flex items-center rounded-md px-3 py-2 text-left text-gray-600 hover:bg-gray-100">
+            <Home className="mr-3 h-5 w-5" />
             Dashboard
           </button>
           <button
@@ -40,6 +52,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
             }`}
             onClick={() => onNavigate("jobs")}
           >
+            <BriefcaseBusiness className="mr-3 h-5 w-5" />
             Jobs
           </button>
           <button
@@ -50,13 +63,32 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
             }`}
             onClick={() => onNavigate("billing")}
           >
+            <CreditCard className="mr-3 h-5 w-5" />
             Billing
           </button>
         </nav>
-        <div className="border-t border-gray-200 p-4">
-          <button className="text-gray-600 hover:text-gray-900">
+        <div className="relative border-t border-gray-200 p-4">
+          <button
+            className="flex w-full items-center text-gray-600 hover:text-gray-900"
+            onClick={() => setShowSettingsMenu(!showSettingsMenu)}
+          >
+            <Settings className="mr-3 h-5 w-5" />
             Settings
           </button>
+
+          {showSettingsMenu && onAppendMockJobs && (
+            <div className="absolute bottom-full left-4 mb-2 w-48 rounded-md border border-gray-200 bg-white py-1 shadow-lg">
+              <button
+                onClick={() => {
+                  onAppendMockJobs();
+                  setShowSettingsMenu(false);
+                }}
+                className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
+              >
+                Load Mock Jobs
+              </button>
+            </div>
+          )}
         </div>
       </aside>
 

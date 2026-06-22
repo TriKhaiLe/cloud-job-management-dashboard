@@ -22,6 +22,14 @@ Ensure you have Node.js installed, then follow these steps:
    npm run build
    ```
 
+## Using Mock Data
+
+To help visualize how the dashboard handles data, you can populate the list with pre-defined mock jobs:
+
+1. Navigate to the bottom of the left sidebar.
+2. Click the **Settings** button to open a dropdown menu.
+3. Click **Load Mock Jobs** – this will dynamically append predefined jobs to the dashboard. You can click this multiple times to generate more variations of these jobs!
+
 ## Design Decisions
 ### Tech Stack Choices
 - **Framework & Tooling**: Chosen **React** and **Vite** for a fast development loop and robust ecosystem. Employed **TypeScript** to provide strict typing, minimizing runtime errors.
@@ -44,5 +52,6 @@ If given more time and resources, here's what could be improved:
 - **Loading States**: Implement loading skeletons for tables.
 - **Scalability of Data Representation**: Implement pagination on tables.
 - **Synchronization**: Synchronize the selected job details when job state updates. 
+- **Handle Exceeding Limits**: Implement logic to handle the case when the user reaches the maximum number of tokens.
 - **Responsive Design**: Enhance the dashboard's responsiveness for mobile and tablet devices, ensuring a seamless experience across all screen sizes.
 - **Improve UI & UX**: Synchronize the text size and do some adjustments to match the design mockups. Add animations to enhance user experience.

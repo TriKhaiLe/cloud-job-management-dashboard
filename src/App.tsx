@@ -1,7 +1,7 @@
 import { FolderOpen, Plus } from "lucide-react";
 import { AppLayout } from "./layouts/AppLayout";
 import { JobTable } from "./features/JobTable";
-// import { mockJobs } from "./data/mockJobs";
+import { mockJobs } from "./data/mockJobs";
 import { Button, SelectField } from "./components/ui";
 import {
   CreateJobModal,
@@ -42,15 +42,24 @@ function App() {
       inputFile: data.inputFileName,
       status: "Queued",
       createdAt: new Date().toISOString(),
-      creditCost:
-        data.computeType === "GPU"
-          ? 60
-          : data.computeType === "CPU Large"
-            ? 20
-            : 5,
     };
     setJobs((prev) => [newJob, ...prev]);
     setShowCreateModal(false);
+  };
+
+  const handleAppendMockJobs = () => {
+    setJobs((prev) => {
+      const nums = prev.map((j) => parseInt(j.id.replace("JOB-", ""), 10));
+      let next = Math.max(0, ...nums) + 1;
+
+      const newMockJobs = mockJobs.map((job) => {
+        const newJob = { ...job, id: `JOB-${String(next).padStart(4, "0")}` };
+        next++;
+        return newJob;
+      });
+
+      return [...prev, ...newMockJobs];
+    });
   };
 
   const filteredJobs = useMemo(() => {
@@ -155,6 +164,7 @@ function App() {
       activePage={activePage}
       onNavigate={setActivePage}
       onSearchChange={setSearchQuery}
+      onAppendMockJobs={handleAppendMockJobs}
       rightPanel={
         selectedJob && (
           <JobDetailPanel
